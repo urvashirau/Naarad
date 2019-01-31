@@ -1,13 +1,15 @@
 #! /bin/sh
 
 FLASH='/mnt/flash1';
+TIMEOUT=5; #seconds
 if grep -qs $FLASH /proc/mounts; then
     echo "$FLASH is mounted."
 else
-    echo "Mounting $FLASH."
+    echo -n "Mounting $FLASH.  And waiting for $TIMEOUT sec..."
     sudo mount -o uid=pi,gid=pi /dev/sda1 $FLASH
     #sudo ~pi/bin/mnt.sh  # This mounts the flash1 drive where the source code is
-    sleep 5
+    sleep $TIMEOUT;
+    echo "done!";
 fi
 
 cd /mnt/flash1/Arduino/Git/Arduino/unoserver2/NewServer
